@@ -2,7 +2,7 @@
  * Created by hea on 3/21/19.
  */
 
-const MODULE_NAME = 'demo.globalHeaderController';
+const MODULE_NAME = 'globalHeaderController';
 
 angular.module(MODULE_NAME,['constantServiceModule'])
     .controller('globalHeaderController', ['$state','constantService', function ($state, constantService) {

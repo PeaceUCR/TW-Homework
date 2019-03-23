@@ -21,7 +21,7 @@ angular.module(MODULE_NAME,['constantServiceModule']).factory('agentsDataService
             });
             historyList.unshift(agentsData[dataIndex].url);
         },
-        deleteResources: (dataIndex, resourceIndex)=>{
+        deleteResource: (dataIndex, resourceIndex)=>{
             agentsData[dataIndex].resources.splice(resourceIndex, 1);
             historyList.unshift(agentsData[dataIndex].url);
         },
@@ -40,11 +40,9 @@ angular.module(MODULE_NAME,['constantServiceModule']).factory('agentsDataService
 
             return summary;
         },
-
         getHistory:()=>{
             return historyList;
         }
-
     }
 }]);
 

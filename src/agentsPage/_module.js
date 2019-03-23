@@ -3,7 +3,7 @@
  */
 import agentsPageController from './agentsPageController'
 
-const MODULE_NAME = 'demo.agentsPageModule';
+const MODULE_NAME = 'agentsPageModule';
 
 angular.module(MODULE_NAME, [
     agentsPageController

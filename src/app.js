@@ -22,7 +22,7 @@ let agentsPageTemplateUrl = require('./agentsPage/agentsPage.html');
 let helpPageTemplateUrl = require('./helpPage/helpPage.html');
 
 angular.module(MODULE_NAME, [uirouter, apiServiceModule, constantServiceModule, agentsDataServiceModule, globalHeaderModule, agentsPageModule])
-    .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider, $urlRouterProvider) {
+    .config(['$stateProvider', '$urlRouterProvider', ($stateProvider, $urlRouterProvider)=>{
         $urlRouterProvider.otherwise("/agents");
 
         $stateProvider.state('dashboard', {

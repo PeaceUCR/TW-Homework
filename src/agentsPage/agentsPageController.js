@@ -11,6 +11,9 @@ let defaultSelection = 'Physical';
 angular.module(MODULE_NAME,['agentsDataServiceModule'])
     .controller('agentsPageController', ['$scope','$state', 'constantService','agentsDataService', function ($scope, $state, constantService, agentsDataService) {
         let ACtrl = this;
+
+        ACtrl.filters = constantService.getAgentsFilter();
+
         ACtrl.selectedFilter = defaultSelection;
         ACtrl.select = (name)=>{
             ACtrl.selectedFilter = name;
@@ -18,12 +21,17 @@ angular.module(MODULE_NAME,['agentsDataServiceModule'])
         };
 
         ACtrl.agentsDataService = agentsDataService;
-        ACtrl.filters = constantService.getAgentsFilter();
 
-        ACtrl.summary = agentsDataService.getSummary();
+        ACtrl.summary = ACtrl.agentsDataService.getSummary();
         ACtrl.summaryKeys = Object.keys(ACtrl.summary).sort((a, b)=> {return a<b?-1:1});
 
-        ACtrl.historyList = agentsDataService.getHistory();
+        ACtrl.historyList = ACtrl.agentsDataService.getHistory();
+
+        //when agents status change, update the summary
+        $scope.$on('agentsStatusChange',($event)=>{
+            ACtrl.summary = ACtrl.agentsDataService.getSummary();
+            ACtrl.summaryKeys = Object.keys(ACtrl.summary).sort((a, b)=> {return a<b?-1:1});
+        });
 
     }]).directive('agentContent', ['agentsDataService', (agentsDataService)=>{
         return {
@@ -34,14 +42,6 @@ angular.module(MODULE_NAME,['agentsDataServiceModule'])
                 contentIndex: '='
             },
             link: (scope, element, attrs)=>{
-                scope.addResources = function () {
-                    agentsDataService.addResources(scope.contentIndex, scope.resource);
-                    scope.resource = '';
-                }
-
-                scope.deleteResources =function (index) {
-                    agentsDataService.deleteResources(scope.contentIndex, index);
-                }
             },
             controller: ['$scope',( $scope)=>{
                 $scope.filterName = defaultSelection;
@@ -52,11 +52,26 @@ angular.module(MODULE_NAME,['agentsDataServiceModule'])
                 };
                 $scope.close = ()=>{
                     $scope.isOpenDialog = false;
-                }
+                };
+
+                $scope.addResources = function () {
+                    agentsDataService.addResources($scope.contentIndex, $scope.resource);
+                    $scope.resource = '';
+                };
+                $scope.deleteResource =function (index) {
+                    agentsDataService.deleteResource($scope.contentIndex, index);
+                };
+
+                $scope.handlePressEnter = function (event) {
+                    if(event.keyCode === 13){
+                        event.preventDefault();
+                        $scope.addResources();
+                    }
+                };
 
                 $scope.$on('filterChange',($event, filterName)=>{
                     $scope.filterName = filterName;
-                })
+                });
             }]
         }
 

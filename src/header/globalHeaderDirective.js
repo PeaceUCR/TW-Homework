@@ -1,7 +1,7 @@
 /**
  * Created by hea on 3/21/19.
  */
-const MODULE_NAME = 'demo.globalHeaderDirective';
+const MODULE_NAME = 'globalHeaderDirective';
 
 const templateUrl = require('./globalHeader.html');
 

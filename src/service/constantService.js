@@ -6,7 +6,7 @@ import { constant } from '../constant'
 
 const MODULE_NAME = 'constantServiceModule';
 
-angular.module(MODULE_NAME,[]).factory('constantService',['$q','$http',($q, $http) => {
+angular.module(MODULE_NAME,[]).factory('constantService',[() => {
     return {
         getRouteData: () => {return constant.route},
         getHeaderData: ()=>{return constant.header},
