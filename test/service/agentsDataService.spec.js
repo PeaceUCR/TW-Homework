@@ -2,17 +2,15 @@
  * Created by hea on 3/22/19.
  */
 
+import agentsDataService from '../../src/service/agentsDataService';
 
-import agentsDataServiceModule from '../../src/service/agentsDataService';
+describe('agentsDataService Spec', () => {
 
-describe('agentsDataServiceModule', () => {
-
-    describe('agentsDataService', () => {
-        let constantServiceMock;
+        let constantServiceMock ,agentsDataServiceMock;
 
         beforeEach(() => {
             let module = angular.mock.module;
-            module(agentsDataServiceModule);
+            module(agentsDataService);
 
             constantServiceMock= {
                 getAgentsContent: ()=>{
@@ -32,28 +30,30 @@ describe('agentsDataServiceModule', () => {
                 $provide.value('constantService', constantServiceMock);
             });
 
+            inject(function (agentsDataService){
+                agentsDataServiceMock = agentsDataService;
+            })
         });
 
-        it('should return value from mock dependency', inject(function (agentsDataService) {
-            expect(agentsDataService.agentsData).toEqual(constantServiceMock.getAgentsContent());
-        }));
+        it('should return value from mock dependency', ()=>{
+            expect(agentsDataServiceMock.agentsData).toEqual(constantServiceMock.getAgentsContent());
+        });
 
-        it('should add/delete resources and history working', inject(function (agentsDataService) {
+        it('should add/delete resources and history working', ()=> {
             let dataIndex = 0;
             let resourcesAdd = 'chrome, ie11';
             let array = resourcesAdd.split(',');
-            agentsDataService.addResources(dataIndex, resourcesAdd);
-            expect(agentsDataService.agentsData[dataIndex].resources).toContain(array[0].trim());
-            expect(agentsDataService.agentsData[dataIndex].resources).toContain(array[1].trim());
+            agentsDataServiceMock.addResources(dataIndex, resourcesAdd);
+            expect(agentsDataServiceMock.agentsData[dataIndex].resources).toContain(array[0].trim());
+            expect(agentsDataServiceMock.agentsData[dataIndex].resources).toContain(array[1].trim());
 
             let resourceIndex = 0;
-            agentsDataService.deleteResources(dataIndex, resourceIndex);
-            expect(agentsDataService.agentsData[dataIndex].resources).not.toContain('ubuntu');
+            agentsDataServiceMock.deleteResource(dataIndex, resourceIndex);
+            expect(agentsDataServiceMock.agentsData[dataIndex].resources).not.toContain('ubuntu');
 
-        }));
+        });
 
-        it('should getSummary works', inject(function (agentsDataService) {
-            expect(agentsDataService.getSummary()).toEqual({'idle': 1});
-        }));
-    });
+        it('should getSummary works', ()=>{
+            expect(agentsDataServiceMock.getSummary()).toEqual({'idle': 1});
+        });
 });
