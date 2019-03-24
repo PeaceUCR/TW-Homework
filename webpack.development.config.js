@@ -14,7 +14,7 @@ let isTest = ENV === 'test' || ENV === 'test-watch';
 
 const config = {
 
-    entry: isTest ? null: path.resolve(__dirname,'./src/app.js'),
+    entry: isTest ? null: ['babel-polyfill', path.resolve(__dirname,'./src/app.js')],
     output: {
         path: path.resolve(__dirname, 'build'),
         filename: 'bundle.js'
@@ -56,7 +56,7 @@ const config = {
     plugins: [
     ],
     mode: 'development',
-    devtool: isTest ? 'inline-source-map' : 'eval',
+    devtool: isTest ? 'inline-source-map' : 'source-map',
     cache: true,
     performance:{
         hints: false

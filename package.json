@@ -6,7 +6,8 @@
   "scripts": {
     "test": "karma start",
     "build": "webpack --config webpack.development.config.js --color",
-    "dev": "export NODE_ENV=development && npm run build && node server.js"
+    "dev": "export NODE_ENV=development && npm run build && node server.js",
+    "start": "npm run build && node server.js"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "autoprefixer": "^8.4.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
+    "babel-plugin-transform-class-properties": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "clean-webpack-plugin": "^2.0.1",
     "css-loader": "^2.1.1",
@@ -25,10 +27,10 @@
     "istanbul-instrumenter-loader": "^3.0.1",
     "jasmine-core": "^3.1.0",
     "karma": "^2.0.2",
+    "karma-chrome-launcher": "^2.2.0",
     "karma-coverage": "^1.0.0",
     "karma-jasmine": "^1.0.2",
     "karma-phantomjs-launcher": "^1.0.0",
-    "karma-chrome-launcher": "^2.2.0",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-spec-reporter": "^0.0.32",
     "karma-webpack": "^3.0.0",
@@ -55,6 +57,7 @@
     "angular-animate": "~1.5.0",
     "angular-ui-mask": "^1.8.7",
     "angular-ui-router": "^1.0.22",
+    "babel-polyfill": "^6.26.0",
     "express": "^4.16.4"
   }
 }

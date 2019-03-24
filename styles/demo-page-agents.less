@@ -18,6 +18,12 @@
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
+      @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
+        display: block;
+        &>li{
+          display: inline-block;
+        }
+      }
       li{
         font-size: 1.4rem;
         padding: 0.4rem 0;
@@ -89,6 +95,9 @@
             flex-direction: row;
             flex-wrap: wrap;
             align-items: center;
+            @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none){
+              display: block;
+            }
             &>i{
               font-size: 0.8rem;
             }
@@ -104,6 +113,7 @@
             span{
               font-size: 1.1rem;
               padding: 0 0.2rem;
+
               i{
                 font-size: 1.2rem;
                 padding-left: 0.2rem;

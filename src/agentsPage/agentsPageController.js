@@ -54,15 +54,15 @@ angular.module(MODULE_NAME,['agentsDataServiceModule'])
                     $scope.isOpenDialog = false;
                 };
 
-                $scope.addResources = function () {
+                $scope.addResources = ()=> {
                     agentsDataService.addResources($scope.contentIndex, $scope.resource);
                     $scope.resource = '';
                 };
-                $scope.deleteResource =function (index) {
+                $scope.deleteResource =(index)=> {
                     agentsDataService.deleteResource($scope.contentIndex, index);
                 };
 
-                $scope.handlePressEnter = function (event) {
+                $scope.handlePressEnter = (event)=> {
                     if(event.keyCode === 13){
                         event.preventDefault();
                         $scope.addResources();
